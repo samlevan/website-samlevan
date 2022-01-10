@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -8,12 +7,19 @@
   Redirecting...
   </body>
   <script>
-  if (window.location.search == ""){
-    window.location.href = "https://github.com/ewerx/x-redirect/";
-  } else {
     const queryString = window.location.search;
-    window.location.href = queryString.split("://")[0].substr(1) + "://" + queryString.split("://")[1];
-    window.close();
-  };
+    // option 1: pass a url encoded command
+    // eg. https://samlevan.github.io/website-samlevan/http_redirector.html?command=obsidian%3A%2F%2Fopen%3Ffile%3DFrancis
+    if (queryString.toLowerCase().indexOf('command=') >= -1) {
+        var command = decodeURIComponent(queryString.split('command=')[1])
+        window.location.href = command
+        window.close();
+    }
+    // option 2: pass the command directly
+    // eg. https://samlevan.github.io/website-samlevan/http_redirector.html?obsidian://open?file=Francis
+    else {
+        window.location.href = queryString.split("://")[0].substr(1) + "://" + queryString.split("://")[1];
+        window.close();
+    }
   </script>
 </html>
